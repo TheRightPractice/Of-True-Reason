@@ -1,0 +1,82 @@
+#목표는 문장을 입력받아서 염기 서열로 바꾸는 것.
+
+
+#문장 to binary(using unicode)
+sentence = input("문장을 입력하세요 : ")
+binary = ''.join(format(c, 'b') for c in bytearray(sentence, "utf-8"))
+print("The Binary Represntation is:", binary) 
+
+num = len(binary)
+print("2진수의 자릿수 : ", num)
+
+primer_F = input("프라이머의 붙을 Forward 염기쌍을 입력하세요 : ")
+primer_R = input("프라이머에 붙을 Reverse 염기쌍을 입력하세요 : ")
+pair = ''
+
+for n in range(0, int((num/2))):
+    ary = binary[2*n]+binary[2*n+1]
+    if ary == '00':
+        pair = pair + 'A'
+    elif ary == '01':
+        pair = pair + 'C'
+    elif ary == '10':
+        pair = pair + 'G'
+    else:     
+        pair = pair + 'T'
+
+print(' ')
+print("프라이머는 80개 단위로 잘려집니다. 최대 16개까지 잘려지며 Index는 앞 두 염기입니다.")
+print(pair)
+print(' ')
+
+colors = list(pair)
+
+s = 0
+e = len(colors)
+index_bin = 0
+index = 0
+
+div=80
+
+for i in range(s, e+div, div):
+    out = colors[s:s+div]
+    index_bin = bin(int(i/80))[2:].zfill(4)
+    if index_bin == '0000':
+        index = 'AA'
+    elif index_bin == '0001':
+        index = 'AC'
+    elif index_bin == '0010':
+        index = 'AG'
+    elif index_bin == '0011':
+        index = 'AT'
+    elif index_bin == '0100':
+        index = 'CA'
+    elif index_bin == '0101':
+        index = 'CC'
+    elif index_bin == '0110':
+        index = 'CG'
+    elif index_bin == '0111':
+        index = 'CT'
+    elif index_bin == '1000':
+        index = 'GA'
+    elif index_bin == '1001':
+        index = 'GC'
+    elif index_bin == '1010':
+        index = 'GG'
+    elif index_bin == '1011':
+        index = 'GT'
+    elif index_bin == '1100':
+        index = 'TA'
+    elif index_bin == '1101':
+        index = 'TC'
+    elif index_bin == '1110':
+        index = 'TG'
+    else:
+        index = 'TT'
+
+
+    if out != []:
+        result = ''.join(s for s in out)
+        print(primer_F, index, result, primer_R)
+        print(' ')
+    s=s+div
