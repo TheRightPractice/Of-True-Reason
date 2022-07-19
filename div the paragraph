@@ -1,20 +1,22 @@
-file_txt = open("t.txt", "r", encoding = "utf-8")
+from math import *
+
+file_txt = open("input.txt", "r", encoding = "utf-8")
 
 a = file_txt.readlines()
-
 
 s=0
 b=0
 e=len(a)
 print("전체 줄의 수는 : ", e)
-div=input("단위 줄 : ")
+yyy=input("나눌 개수 : ")
+div = int(ceil(e/int(yyy)))
 
 d = s + int(div)
 
-for i in range(s, e+1, int(div)):
+for i in range(s, e, int(div)):
     b += 1
 
-    final_txt = open(f"t{b}.txt", "w", encoding = "utf-8")
+    final_txt = open(f"my_txt{b}.txt", "w", encoding = "utf-8")
     
     arr = a[int(s):int(s+int(div))]
     arr_final = ''.join(map(str, arr))
